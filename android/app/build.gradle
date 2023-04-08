@@ -114,9 +114,9 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('eeza-key.keystore')
+            storeFile file("${MYAPP_RELEASE_STORE_FILE}")
             storePassword keystorePassword
-            keyAlias 'eeza-key'
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
             keyPassword keystorePassword
         }
     }
