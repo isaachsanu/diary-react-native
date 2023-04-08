@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
+            <Text style={styles.title}>My Diary</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -50,9 +50,14 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
                 value={password}
                 secureTextEntry
             />
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonGroupWrapper}>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonPassive} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Not Now</Text>
+                </TouchableOpacity>
+            </View>
             {error && <Text style={styles.error}>{error}</Text>}
         </View>
     );
@@ -93,6 +98,18 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: '#FFF',
+    },
+    buttonPassive: {
+        backgroundColor: '#AAA',
+        borderRadius: 8,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    buttonGroupWrapper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 8,
     },
     error: {
         color: '#FF0000',

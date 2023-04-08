@@ -1,42 +1,20 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useState } from "react";
 import { Dimensions, PixelRatio, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import { Image, Text } from "react-native-elements";
+import { Button, Icon, Image, Text } from "react-native-elements";
 import { RootStackParamList } from "./App";
 import { images_set } from "./assets/data/onboarding_images_set.json"
+import { OnboardingSliderWrapper } from "./components/OnboardingSliderWrapper";
 
 type IntroNavigationProp = StackNavigationProp<RootStackParamList, 'Intro'>;
 type IntroProps = { navigation: IntroNavigationProp };
 
 const IntroScreen = ({ navigation }: IntroProps) => {
-    const [sliderState, setSliderState] = useState({ currentPage: 0 });
     const { width, height } = Dimensions.get('window');
-
-    const setSliderPage = (event: any) => {
-        const { currentPage } = sliderState;
-        const { x } = event.nativeEvent.contentOffset;
-        const indexOfNextScreen = Math.floor(x / width);
-        if (indexOfNextScreen !== currentPage) {
-            setSliderState({
-                ...sliderState,
-                currentPage: indexOfNextScreen,
-            });
-        }
-    };
-    const { currentPage: pageIndex } = sliderState;
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView
-                style={{ flex: 1 }}
-                horizontal={true}
-                scrollEventThrottle={16}
-                pagingEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                onScroll={(event: any) => {
-                    setSliderPage(event);
-                }}
-            >
+            <OnboardingSliderWrapper screenWidth={width}>
                 <View style={{ width, height }}>
                     <Image source={{ uri: images_set[0] }} style={styles.imageStyle} />
                     <View style={styles.wrapper}>
@@ -72,17 +50,23 @@ const IntroScreen = ({ navigation }: IntroProps) => {
                         <Text style={styles.paragraph}>... seriously, it is</Text>
                     </View>
                 </View>
-            </ScrollView>
-            <View style={styles.paginationWrapper}>
-                {Array.from(Array(5).keys()).map((key, index) => (
-                    <View style={[styles.paginationDots, { opacity: pageIndex === index ? 1 : 0.2 }]} key={index} />
-                ))}
+            </OnboardingSliderWrapper>
+            <View style={styles.startButtonWrapper}>
+                <Button
+                    containerStyle={{ width: "80%" }}
+                    buttonStyle={{
+                        paddingVertical: 16,
+                        borderRadius: 8, 
+                        backgroundColor: "#3F51B5"
+                    }}
+                    title="Get Started"
+                    type="solid"
+                    onPress={() => navigation.navigate('LoginScreen')}
+                />
             </View>
         </SafeAreaView>
     );
 };
-
-
 
 const styles = StyleSheet.create({
     imageStyle: {
@@ -102,21 +86,12 @@ const styles = StyleSheet.create({
     paragraph: {
         fontSize: 16,
     },
-    paginationWrapper: {
+    startButtonWrapper: {
         position: 'absolute',
-        bottom: 96,
-        left: 0,
-        right: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row',
-    },
-    paginationDots: {
-        height: 8,
-        width: 8,
-        borderRadius: 8 / 2,
-        backgroundColor: '#0898A0',
-        marginLeft: 8,
+        width: '100%',
+        bottom: 64,
     },
 });
 
