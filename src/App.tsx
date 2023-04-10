@@ -3,31 +3,33 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { IntroScreen } from './IntroScreen';
 import { LoginScreen } from './LoginScreen';
+import { HomeScreen } from './HomeScreen';
 import { Onboarding1, Onboarding2, Onboarding3 } from './OnboardingScreen';
+import { StatusBar } from 'react-native';
 
 export type RootStackParamList = {
     Intro: undefined,
-    Onboarding1: undefined, // undefined because you aren't passing any params to the home screen
-    Onboarding2: undefined,
-    Onboarding3: undefined,
     LoginScreen: undefined,
+    HomeScreen: undefined,
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
-
-                <Stack.Screen name="Onboarding1" component={Onboarding1} />
-                <Stack.Screen name="Onboarding2" component={Onboarding2} />
-                <Stack.Screen name="Onboarding3" component={Onboarding3} />
-
-            </Stack.Navigator>
-        </NavigationContainer>
+        <>
+            <StatusBar
+                backgroundColor={'#fff'}
+                barStyle={'dark-content'}
+            />
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </>
     );
 };
 

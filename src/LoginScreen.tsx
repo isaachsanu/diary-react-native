@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonPassive} onPress={handleLogin}>
+                <TouchableOpacity style={styles.buttonPassive} onPress={() => navigation.navigate('HomeScreen')}>
                     <Text style={styles.buttonText}>Not Now</Text>
                 </TouchableOpacity>
             </View>
